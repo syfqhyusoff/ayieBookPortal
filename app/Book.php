@@ -10,4 +10,6 @@ class Book extends Model
     protected $table = 'book_items';
     // primary key
     public $primaryKey = 'book_id';
+
 }
+

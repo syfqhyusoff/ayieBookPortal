@@ -33,3 +33,5 @@ Route::get('/romance', 'PagesController@romance');
 Route::get('/single', 'PagesController@single');
 //Route::resource('posts', 'PostsController');
 Route::resource('bookCategory', 'BooksController');
+Route::resource('review','reviewCont');
+Route::resource('rating','ratingCont');
