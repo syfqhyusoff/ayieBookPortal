@@ -18,12 +18,15 @@
 	</div>
 	<!-- //breadcrumbs -->  
 	<!-- single -->
+
+	
+
 	<div class="single">
 		<div class="container">
 			<div class="col-md-4 single-left">
 				<div class="flexslider">
 					<div>
-						<img src="images/ajaib.jpg" alt="Image tak keluar" class="img-responsive" data-imagezoom="true"/> 
+						<img src="/{{$book->image_url}}" alt="Image tak keluar" class="img-responsive" data-imagezoom="true"/> 
 					</div>
 					
 				</div>

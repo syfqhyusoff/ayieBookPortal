@@ -63,32 +63,34 @@
 								<div class="agile_ecommerce_tab_left mobiles_grid">
 								<div class="hs-wrapper hs-wrapper2">
 										
-									
+							
 									<img src="{{$book->image_url}}" alt="No Image" class="img-responsive"/>
-								
 									
 									
-									<div class="w3_hs_bottom">
-										<ul>
-											<li>
-												<a data-toggle="modal" data-target="#myModal9"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span></a>
-											</li>
-										</ul>
 									
-									
-									</div>
 								</div>
 
 								<h5><a href="/bookCategory/{{$book->book_id}}">{{$book->book_title}}</h5>
 								<div class="simpleCart_shelfItem">
+										<div class="rating1">
+												<span class="starRating">
+													<input id="rating5" type="radio" name="rating" value="5">
+													<label for="rating5">5</label>
+													<input id="rating4" type="radio" name="rating" value="4">
+													<label for="rating4">4</label>
+													<input id="rating3" type="radio" name="rating" value="3">
+													<label for="rating3">3</label>
+													<input id="rating2" type="radio" name="rating" value="2">
+													<label for="rating2">2</label>
+													<input id="rating1" type="radio" name="rating" value="1">
+													<label for="rating1">1</label>
+												</span>
+											</div>
 									<p><i class="item_price">Syafiq Aizat (dummy)</i></p>
-									<form action="#" method="post">
-										<input type="hidden" name="cmd" value="_cart" />
-										<input type="hidden" name="add" value="1" /> 
-										<input type="hidden" name="w3ls_item" value="Smart Phone" /> 
-										<input type="hidden" name="amount" value="245.00"/>   
-										<button type="submit" class="w3ls-cart">View More</button>
-									</form>
+									
+									<a class="button button2" href="/bookCategory/{{$book->book_id}}" role="button">View More</a>
+									
+									
 								</div> 
 								</div>
 							</div>
