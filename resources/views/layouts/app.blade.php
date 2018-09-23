@@ -71,7 +71,7 @@
             @include('inc.messages')
 
             @yield('content')
-            @include('inc.list')
+           
 
         </div>
         <script src="/vendor/unisharp/laravel-ckeditor/ckeditor.js"></script>
