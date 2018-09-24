@@ -38,4 +38,7 @@ Route::get('/bookCategory', 'BooksController@category');
 Route::get('/', 'BooksController@index');
 Route::get('/about', 'BooksController@about');
 Route::get('/testjoin', 'BooksController@testjoin');
+Route::resource('bookgenre','genreCont');
+Route::get('/{id}', 'genreCont@show');
+
 

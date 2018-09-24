@@ -8,6 +8,7 @@ use App\Author;
 use DB;
 use App\review;
 use App\rating;
+use App\genre;
 
 class BooksController extends Controller
 {
