@@ -35,7 +35,7 @@ Route::resource('bookCategory', 'BooksController');
 Route::resource('review','reviewCont');
 Route::resource('rating','ratingCont');
 Route::get('/bookCategory', 'BooksController@category');
-Route::get('/', 'BooksController@index');
+Route::get('/', 'categCont@index');
 Route::get('/about', 'BooksController@about');
 Route::get('/testjoin', 'BooksController@testjoin');
 

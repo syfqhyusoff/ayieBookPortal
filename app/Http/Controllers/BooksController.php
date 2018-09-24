@@ -31,9 +31,12 @@ class BooksController extends Controller
         ->leftjoin('book_contributor', 'book_contributor.book_id', '=', 'book_items.book_id')
         ->leftjoin('book_author', 'book_author.author_id', '=', 'book_contributor.author_id')
         ->leftjoin('book_publisher', 'book_publisher.publisher_id', '=', 'book_items.publisher_id')
-        ->select('book_items.*','book_publisher.publisher_name', 'book_author.author_fname')
+        ->leftjoin('book_category', 'book_category.book_id', '=', 'book_items.book_id')
+        ->select('book_items.*','book_publisher.publisher_name', 'book_author.author_fname', 
+        'book_author.author_lname', 'book_category.genre_id')
     
         ->get();
+
 
         //  $name = $books->.' '.$student->surname;
         
@@ -57,10 +60,17 @@ class BooksController extends Controller
 
     */
 
-    $books = Book::where('publisher_id', 2)
-               ->get();
-    
-               return $books;
+    $books = DB::table('book_items')
+        ->leftjoin('book_contributor', 'book_contributor.book_id', '=', 'book_items.book_id')
+        ->leftjoin('book_author', 'book_author.author_id', '=', 'book_contributor.author_id')
+        ->leftjoin('book_publisher', 'book_publisher.publisher_id', '=', 'book_items.publisher_id')
+        ->leftjoin('book_category', 'book_category.book_id', '=', 'book_items.book_id')
+        ->select('book_items.*','book_publisher.publisher_name', 'book_author.author_fname', 
+        'book_author.author_lname', 'book_category.genre_id')
+        ->get();
+
+        return $books;
+
     }
 
 
@@ -104,7 +114,7 @@ class BooksController extends Controller
         ->leftjoin('book_publisher', 'book_items.publisher_id','=','book_publisher.publisher_id')
         ->where(['book_id'=>$id])
         ->first();
-
+        
         $contributor = DB::table('book_contributor')
         ->leftjoin('book_author', 'book_contributor.author_id','=','book_author.author_id')
         ->where(['book_id'=>$id])
