@@ -37,6 +37,7 @@
 													<input id="rating1" type="radio" name="rating" value="1">
 													<label for="rating1">1</label>
 												</span>
+												{{$book->book_rating}}
 											</div>
 									<p>{{$book->author_fname}}</p>
 									

@@ -50,15 +50,24 @@
 
 				<div class="description">
 					<h5><i>Description</i></h5>
-					<h3>{{$book->author_fname}}</h3>
-					<p>ISBN :		{{$book->book_isbn}}</p>
-					<p>Pages:		{{$book->book_page}}</p>
-					<p>Year :		{{$book->book_year}}</p>
-					<p>Location :	{{$book->book_location}}</p>
-					<p>Material :	{{$book->book_material}}</p>
-					<p>Status	:	{{$book->book_status}}</p>
-					<p>Unit		:	{{$book->book_unit}}</p>
-					<p>Publisher:	{{$book->book_publisher}}</p>
+					<h6><b>all contributors name :</b> <!--clear this line later-->
+
+						@if(count($authors) > 0)
+						@foreach($authors as $author)
+							{{$author->author_fname}} {{$author->author_lname}} 
+						@endforeach
+						@endif
+						
+						<br/>rating : {{$rating->rating}} <!--clear this line later when star can be display-->
+					</h6>
+							<p>ISBN :		{{$book->book_isbn}}</p>
+							<p>Pages:		{{$book->book_page}}</p>
+							<p>Year :		{{$book->book_year}}</p>
+							<p>Location :	{{$book->book_location}}</p>
+							<p>Material :	{{$book->book_material}}</p>
+							<p>Status	:	{{$book->book_status}}</p>
+							<p>Unit		:	{{$book->book_unit}}</p>
+							<p>Publisher:	{{$book->publisher_name}}</p>
 				</div>
 				
 			</div>

@@ -97,13 +97,13 @@ class ratingCont extends Controller
         $ratings->book_id = "$id";
         $ratings->timestamps = false;
         $ratings->save();
-        $booksingle = Book::find($id);
-        return view('books.singlebook') -> with ('book', $booksingle);
+        
+        return redirect()->action('BooksController@show',$id);
         }
         else{
             self::store($request);
-            $booksingle = Book::find($id);
-            return view('books.singlebook') -> with ('book', $booksingle);
+            
+            return redirect()->action('BooksController@show',$id);
         }
 
     }
