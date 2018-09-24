@@ -10,6 +10,16 @@ class Book extends Model
     protected $table = 'book_items';
     // primary key
     public $primaryKey = 'book_id';
+    //not incremented
+    public $incrementing = false;
+    //timestamps
+    public $timestamps = false;
 
+
+    public function publisher()
+    {
+        return $this->hasOne('App\Publisher');
+    }
+    
 }
 

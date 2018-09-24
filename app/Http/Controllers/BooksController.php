@@ -43,7 +43,7 @@ class BooksController extends Controller
     /*->select('book_items.book_title','book_items.book_isbn','book_items.book_page','book_items.book_year',
     'book_items.book_location','book_items.book_material', 'book_items.book_status', 'book_items.book_unit',
     'book_items.image_url', 'book_publisher.publisher_name', 'book_author.author_fname')
-    */
+    
 
     $books = DB::table('book_items')
     ->join('book_contributor', 'book_contributor.book_id', '=', 'book_items.book_id')
@@ -53,10 +53,12 @@ class BooksController extends Controller
     ->get();
     return $books;
 
-    
+    */
 
+    $books = Book::where('publisher_id', 2)
+               ->get();
     
-
+               return $books;
     }
 
 

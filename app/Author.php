@@ -10,4 +10,10 @@ class Author extends Model
     protected $table = 'book_author';
     // primary key
     public $primaryKey = 'author_id';
+
+
+    
+    
+
+
 }
