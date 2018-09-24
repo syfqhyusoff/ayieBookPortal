@@ -7,6 +7,7 @@ use App\Book;
 use App\Author;
 use DB;
 use App\review;
+use App\rating;
 
 class BooksController extends Controller
 {
@@ -108,8 +109,9 @@ class BooksController extends Controller
         ->where(['book_id'=>$id])
         ->get();
 
-        $rating = DB::table('book_rating')
+        $rating = rating::leftjoin('user_reader', 'book_rating.user_id','=','user_reader.user_id')
         ->where(['book_id'=>$id])
+        ->where('book_rating.user_id',session('userid'))
         ->first();
 
         $reviews = review::leftjoin('user_reader', 'book_review.user_id','=','user_reader.user_id')
