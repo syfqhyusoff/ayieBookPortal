@@ -2,7 +2,7 @@
 
 @section('content')	
 
-	
+
 	<!-- single -->
 
 	<div class="single">

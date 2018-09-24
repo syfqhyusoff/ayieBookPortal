@@ -113,12 +113,12 @@ class BooksController extends Controller
         ->first();
 
         $reviews = review::leftjoin('user_reader', 'book_review.user_id','=','user_reader.user_id')
-        ->where('book_review.user_id','!=','5555')
+        ->where('book_review.user_id','!=',session('userid'))
         ->where('book_id',$id)
         ->orderBy('review_date','desc')
         ->paginate(10);
         $userreviews = review::leftjoin('user_reader', 'book_review.user_id','=','user_reader.user_id')
-        ->where('book_review.user_id','5555')
+        ->where('book_review.user_id',session('userid'))
         ->where('book_review.book_id',$id)
         ->first();
 
