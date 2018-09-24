@@ -35,7 +35,7 @@ class ratingCont extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, $id)
     {
         $this->validate($request,[
             'rating'=>'required',
@@ -45,8 +45,8 @@ class ratingCont extends Controller
         $rating = new rating;
         
         $rating->rating = $request->input('rating');
-        $rating->user_id = "123331";
-        $rating->book_id = "1321";
+        $rating->user_id = session('userid');
+        $rating->book_id = $id;
         $rating->timestamps = false;
         $rating->save();
 
@@ -87,23 +87,27 @@ class ratingCont extends Controller
             'rating'=>'required',
         ]);
         
-        if (rating::where('book_id', '=', $id)->exists()) {
+        if (rating::where('book_id', '=', $id)
+        ->where('user_id',session('userid'))
+        ->exists()) {
             // user found
         //create rating
         
-        $ratings = rating::where('book_id', '=', $id)->first();
+        $ratings = rating::where('book_id', '=', $id)
+        ->where('user_id',session('userid'))
+        ->first();
         $ratings->rating = $request->input('rating');
-        $ratings->user_id = "123331";
+        $ratings->user_id = session('userid');
         $ratings->book_id = "$id";
         $ratings->timestamps = false;
         $ratings->save();
-        $booksingle = Book::find($id);
-        return view('books.singlebook') -> with ('book', $booksingle);
+        
+        return redirect()->action('BooksController@show',$id);
         }
         else{
-            self::store($request);
-            $booksingle = Book::find($id);
-            return view('books.singlebook') -> with ('book', $booksingle);
+            self::store($request,$id);
+            
+            return redirect()->action('BooksController@show',$id);
         }
 
     }

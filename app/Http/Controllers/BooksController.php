@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Book;
 use App\Author;
 use DB;
+use App\review;
 
 class BooksController extends Controller
 {
@@ -27,14 +28,15 @@ class BooksController extends Controller
         //return view ('books.category') -> with ('books', $books);
         //$books = Book::all();
         $books = DB::table('book_items')
-        ->join('book_contributor', 'book_contributor.book_id', '=', 'book_items.book_id')
-        ->join('book_author', 'book_author.author_id', '=', 'book_contributor.author_id')
-        ->join('book_publisher', 'book_publisher.publisher_id', '=', 'book_items.publisher_id')
+        ->leftjoin('book_contributor', 'book_contributor.book_id', '=', 'book_items.book_id')
+        ->leftjoin('book_author', 'book_author.author_id', '=', 'book_contributor.author_id')
+        ->leftjoin('book_publisher', 'book_publisher.publisher_id', '=', 'book_items.publisher_id')
         ->select('book_items.*','book_publisher.publisher_name', 'book_author.author_fname')
     
         ->get();
 
         //  $name = $books->.' '.$student->surname;
+        
         return view ('books.category') -> with ('books', $books);
     }
 
@@ -98,10 +100,39 @@ class BooksController extends Controller
      */
     public function show($id)
     {
-        $booksingle = Book::find($id);
-        return view('books.singlebook') -> with ('book', $booksingle);
-    }
+        $booksingle = DB::table('book_items')
+        ->leftjoin('book_publisher', 'book_items.publisher_id','=','book_publisher.publisher_id')
+        ->where(['book_id'=>$id])
+        ->first();
 
+        $contributor = DB::table('book_contributor')
+        ->leftjoin('book_author', 'book_contributor.author_id','=','book_author.author_id')
+        ->where(['book_id'=>$id])
+        ->get();
+
+        $rating = DB::table('book_rating')
+        ->where(['book_id'=>$id])
+        ->first();
+
+        $reviews = review::leftjoin('user_reader', 'book_review.user_id','=','user_reader.user_id')
+        ->where('book_review.user_id','!=',session('userid'))
+        ->where('book_id',$id)
+        ->orderBy('review_date','desc')
+        ->paginate(10);
+        $userreviews = review::leftjoin('user_reader', 'book_review.user_id','=','user_reader.user_id')
+        ->where('book_review.user_id',session('userid'))
+        ->where('book_review.book_id',$id)
+        ->first();
+
+        return view('books.singlebook') 
+        ->with('book', $booksingle)
+        ->with('authors',$contributor)
+        ->with('ratings',$rating)
+        ->with('reviews',$reviews)
+        ->with('userreviews',$userreviews)
+        ;
+    }
+  
     /**
      * Show the form for editing the specified resource.
      *

@@ -2,7 +2,7 @@
 
 @section('content')	
 
-	
+
 	<!-- single -->
 
 	<div class="single">
@@ -50,15 +50,24 @@
 
 				<div class="description">
 					<h5><i>Description</i></h5>
-					<h3>{{$book->author_fname}}</h3>
-					<p>ISBN :		{{$book->book_isbn}}</p>
-					<p>Pages:		{{$book->book_page}}</p>
-					<p>Year :		{{$book->book_year}}</p>
-					<p>Location :	{{$book->book_location}}</p>
-					<p>Material :	{{$book->book_material}}</p>
-					<p>Status	:	{{$book->book_status}}</p>
-					<p>Unit		:	{{$book->book_unit}}</p>
-					<p>Publisher:	{{$book->book_publisher}}</p>
+					<h6><b>all contributors name :</b> <!--clear this line later-->
+
+						@if(count($authors) > 0)
+						@foreach($authors as $author)
+							{{$author->author_fname}} {{$author->author_lname}} 
+						@endforeach
+						@endif
+						
+						<br/>rating : {{$ratings->rating}} <!--clear this line later when star can be display-->
+					</h6>
+							<p>ISBN :		{{$book->book_isbn}}</p>
+							<p>Pages:		{{$book->book_page}}</p>
+							<p>Year :		{{$book->book_year}}</p>
+							<p>Location :	{{$book->book_location}}</p>
+							<p>Material :	{{$book->book_material}}</p>
+							<p>Status	:	{{$book->book_status}}</p>
+							<p>Unit		:	{{$book->book_unit}}</p>
+							<p>Publisher:	{{$book->publisher_name}}</p>
 				</div>
 				
 			</div>
@@ -77,53 +86,17 @@
 						
 					<div class="tab-2 resp-tab-content additional_info_grid" aria-labelledby="tab_item-1">
 						<h4>Reviews</h4>
+						
+						@foreach($reviews as $review)
 						<div class="additional_info_sub_grids">
 							<div class="col-xs-2 additional_info_sub_grid_left">
-								<img src="images/t1.png" alt=" " class="img-responsive" />
+								<img src="images/t2.png" alt="no pict" class="img-responsive" />
 							</div>
 							<div class="col-xs-10 additional_info_sub_grid_right">
 								<div class="additional_info_sub_grid_rightl">
-									<a href="single.html">Laura</a>
-									<h5>Oct 06, 2016.</h5>
-									<p>Quis autem vel eum iure reprehenderit qui in ea voluptate 
-										velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat 
-										quo voluptas nulla pariatur.</p>
-								</div>
-								<div class="additional_info_sub_grid_rightr">
-									<div class="rating">
-										<div class="rating-left">
-											<img src="images/star-.png" alt=" " class="img-responsive">
-										</div>
-										<div class="rating-left">
-											<img src="images/star-.png" alt=" " class="img-responsive">
-										</div>
-										<div class="rating-left">
-											<img src="images/star-.png" alt=" " class="img-responsive">
-										</div>
-										<div class="rating-left">
-											<img src="images/star.png" alt=" " class="img-responsive">
-										</div>
-										<div class="rating-left">
-											<img src="images/star.png" alt=" " class="img-responsive">
-										</div>
-										<div class="clearfix"> </div>
-									</div>
-								</div>
-								<div class="clearfix"> </div>
-							</div>
-							<div class="clearfix"> </div>
-						</div>
-						<div class="additional_info_sub_grids">
-							<div class="col-xs-2 additional_info_sub_grid_left">
-								<img src="images/t2.png" alt=" " class="img-responsive" />
-							</div>
-							<div class="col-xs-10 additional_info_sub_grid_right">
-								<div class="additional_info_sub_grid_rightl">
-									<a href="single.html">Michael</a>
-									<h5>Oct 04, 2016.</h5>
-									<p>Quis autem vel eum iure reprehenderit qui in ea voluptate 
-										velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat 
-										quo voluptas nulla pariatur.</p>
+									<h4>{{$review->user_fname}}</h4>
+									<h5>Wrote on {{$review->review_date}}</h5>
+									<p>{{$review->review}}</p>
 								</div>
 								<div class="additional_info_sub_grid_rightr">
 									<div class="rating">
@@ -149,15 +122,41 @@
 							</div>
 							<div class="clearfix"> </div>
 						</div>
+						@endforeach
+						
+						{{ $reviews->links() }}
 						<div class="review_grids">
-							<h5>Add A Review</h5>
-							<form action="#" method="post">
-								<input type="text" name="Name" value="Name" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Name';}" required="">
-								<input type="email" name="Email" placeholder="Email" required="">
-								<input type="text" name="Telephone" value="Telephone" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Telephone';}" required="">
-								<textarea name="Review" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Add Your Review';}" required="">Add Your Review</textarea>
-								<input type="submit" value="Submit" >
-							</form>
+							@if(is_null($userreviews))
+								<h5>Add A Review</h5>
+									{!! Form::open(['action'=>'reviewCont@store','method'=>'POST']) !!}
+									
+									<div class='form-group'>
+											{{Form::label('body','Write your Review')}}
+											{{Form::textarea('body','',['id' => 'article-ckeditor' , 'class'=>'form-control' , 'placeholder'=> 'Your review body'])}}
+									</div>
+									{{form::submit('Submit')}}
+									{!! Form::close() !!}
+							@else
+								<div class="additional_info_sub_grids">
+										<h5> Your review </h5>
+										<div class="col-xs-12 additional_info_sub_grid_right">
+											<div class="additional_info_sub_grid_rightl">
+													{{$userreviews->user_fname}}
+												<h5>{{$userreviews->review}}</h5>
+												<small>Wrote on {{$userreviews->review_date}}</small>
+											</div>
+											<div class="additional_info_sub_grid_rightr">
+												<div class="rating">
+													
+													<div class="clearfix"> </div>
+												</div>
+											</div>
+											<div class="clearfix"> </div>
+										</div>
+										<div class="clearfix"> </div>
+									</div>
+								
+							@endif	
 						</div>
 					</div> 			        					            	      
 				</div>	

@@ -17,20 +17,18 @@ class reviewCont extends Controller
     
     public function index()
     {   
-        //$review = review::all();
-        $review = review::where('review_id','!=','3')->orderBy('review_date','desc')->get();
-        $userreview = review::where('review_id','3')->get();
-        //$review = review::orderBy('review_date','desc')->take(1)->get();
-        //$review = review::where('review_id','1')->get();
-        //using sql ,require  use Db
-        //$review = DB::select('SELECT * FROM book_review');
-        //pagination add this after foreach {{$review->links()}}
-        //$review = review::orderBy('review_date','desc')->paginate(1);
+
+        $review = review::where('review_id','!=','3')
+        ->where('user_id',session('userid'))
+        ->orderBy('review_date','desc')->get();
+        $userreview = review::where('review_id','3')
+        ->where('user_id',session('userid'))
+        ->get();
+
         
-        return view('portal.book')
+        return view('books.singlebook')
         ->with('userreview',$userreview)
         ->with('review',$review);
-        
 
     }
 
@@ -41,7 +39,7 @@ class reviewCont extends Controller
      */
     public function create()
     {
-        return view('portal.book');
+        return view('books.singlebook');
     }
 
     /**
@@ -50,7 +48,7 @@ class reviewCont extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request,$id )
     {
         $this->validate($request,[
             'body'=>'required',
@@ -60,12 +58,12 @@ class reviewCont extends Controller
         $review = new review;
         
         $review->review = $request->input('body');
-        $review->user_id = "123331";
-        $review->book_id = "323331";
+        $review->user_id = session('userid');
+        $review->book_id = $id;
         $review->timestamps = false;
         $review->save();
 
-        return redirect('/review')->with('sucess','Review Saved');
+        return redirect()->action('BooksController@show',$id);
     }
 
     /**
