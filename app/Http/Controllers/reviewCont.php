@@ -27,10 +27,9 @@ class reviewCont extends Controller
         //pagination add this after foreach {{$review->links()}}
         //$review = review::orderBy('review_date','desc')->paginate(1);
         
-        return view('portal.book')
+        return view('books.singlebook')
         ->with('userreview',$userreview)
         ->with('review',$review);
-        
 
     }
 
@@ -41,7 +40,7 @@ class reviewCont extends Controller
      */
     public function create()
     {
-        return view('portal.book');
+        return view('books.singlebook');
     }
 
     /**
@@ -50,7 +49,7 @@ class reviewCont extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request,$id )
     {
         $this->validate($request,[
             'body'=>'required',
@@ -61,11 +60,11 @@ class reviewCont extends Controller
         
         $review->review = $request->input('body');
         $review->user_id = "123331";
-        $review->book_id = "323331";
+        $review->book_id = $id;
         $review->timestamps = false;
         $review->save();
 
-        return redirect('/review')->with('sucess','Review Saved');
+        return redirect()->action('BooksController@show',$id);
     }
 
     /**

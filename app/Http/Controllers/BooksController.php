@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Book;
 use App\Author;
 use DB;
+use App\review;
 
 class BooksController extends Controller
 {
@@ -110,7 +111,24 @@ class BooksController extends Controller
         $rating = DB::table('book_rating')
         ->where(['book_id'=>$id])
         ->first();
-        return view('books.singlebook') -> with ('book', $booksingle)->with('authors',$contributor)->with('rating',$rating);
+
+        $reviews = review::leftjoin('user_reader', 'book_review.user_id','=','user_reader.user_id')
+        ->where('book_review.user_id','!=','5555')
+        ->where('book_id',$id)
+        ->orderBy('review_date','desc')
+        ->paginate(10);
+        $userreviews = review::leftjoin('user_reader', 'book_review.user_id','=','user_reader.user_id')
+        ->where('book_review.user_id','5555')
+        ->where('book_review.book_id',$id)
+        ->first();
+
+        return view('books.singlebook') 
+        ->with('book', $booksingle)
+        ->with('authors',$contributor)
+        ->with('ratings',$rating)
+        ->with('reviews',$reviews)
+        ->with('userreviews',$userreviews)
+        ;
     }
   
     /**
