@@ -58,7 +58,9 @@
 						@endforeach
 						@endif
 						
+						@if(!is_null($ratings))
 						<br/>rating : {{$ratings->rating}} <!--clear this line later when star can be display-->
+						@endif
 					</h6>
 							<p>ISBN :		{{$book->book_isbn}}</p>
 							<p>Pages:		{{$book->book_page}}</p>
