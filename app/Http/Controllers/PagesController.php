@@ -8,37 +8,9 @@ class PagesController extends Controller
 {
 
     public function index(){
-        $title = 'Welcome to Laravel!';
-       return view ('books.index', compact('title'));
+       
+        //
       
-    }
-
-    public function business(){
-        $title = 'Book reco';
-       // return view ('pages.index', compact('title'));
-        return view('books.business')->with('title', $title);
-    }
-
-    public function thriller(){
-        $title = 'Book reco';
-        return view('pages.thriller')->with('title', $title);
-    }
-
-    public function romance(){
-        $title = 'Book reco';
-        return view('pages.romance')->with('title', $title);
-    }
-
-    public function single(){
-       // $title = 'Book reco';
-        return view('pages.single');
-    }
-
-    public function about(){
-        $title = 'About Us';
-     //   return view ('pages.about');
-        return view('pages.about')->with('title', $title);
-
     }
 
     public function services(){

@@ -1,6 +1,8 @@
-<div class="col-md-4 w3ls_mobiles_grid_left">
+
+<!--CATEGORIES LIST-->	
+    <div class="col-md-4 w3ls_mobiles_grid_left">
         <div class="w3ls_mobiles_grid_left_grid">
-            <h3>Categories</h3>
+        <h3>Categories</h3>
             <div class="w3ls_mobiles_grid_left_grid_sub">
                 <ul class="panel_bottom">
                     <li><a href="/bookCategory">Business</a></li>
@@ -18,9 +20,8 @@
                     <li><a href="bookCategory">Magazines</a></li>
                     <li><a href="bookCategory">IT & Technology</a></li>
                     <li><a href="bookCategory">Random</a></li>
-
                 </ul>
             </div>
         </div>
-        
     </div>
+<!--END CATEGORY-->

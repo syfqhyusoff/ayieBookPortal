@@ -1,8 +1,8 @@
 @extends('layouts.app')
 
 @section('content')
-<h1><?php echo $title; ?></h1>
-<p>This is the ABOUT PAGE</p>
+<h1>This is the ABOUT PAGE</h1>
+<p>Hello</p>
 @endsection
        
    

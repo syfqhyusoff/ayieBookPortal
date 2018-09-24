@@ -1,25 +1,9 @@
-@extends('layouts.app')
+@extends('layouts.singleitem')
 
 @section('content')	
 
-	<!-- breadcrumbs -->
-	<div class="breadcrumb_dress">
-		<div class="container">
-			<ul>
-				<li><a href="/"><span class="glyphicon glyphicon-home" aria-hidden="true"></span> Home</a> 
-				<i> / </i></li>
-				<li><a href = "/bookCategory"></span> Business</a>
-				<i> / </i></li>
-				<li>{{$book->book_title}}</a>
-
-
-			</ul>
-		</div>
-	</div>
-	<!-- //breadcrumbs -->  
-	<!-- single -->
-
 	
+	<!-- single -->
 
 	<div class="single">
 		<div class="container">
@@ -38,7 +22,7 @@
 				<!--INSERT RATING HERE-->
 				<!--update the id whenver rating_id is obtainable-->
 				{!! Form::open(['id'=>'rating-form','action'=>['ratingCont@update',$book->book_id],'method'=>'POST']) !!} 
-				<h2>Rating</h2>
+				<h4>Rating</h4>
 				<div class="rating1">
 						{{Form::label('title','Rating')}}
 						
@@ -66,6 +50,7 @@
 
 				<div class="description">
 					<h5><i>Description</i></h5>
+					<h3>{{$book->author_fname}}</h3>
 					<p>ISBN :		{{$book->book_isbn}}</p>
 					<p>Pages:		{{$book->book_page}}</p>
 					<p>Year :		{{$book->book_year}}</p>
@@ -73,7 +58,7 @@
 					<p>Material :	{{$book->book_material}}</p>
 					<p>Status	:	{{$book->book_status}}</p>
 					<p>Unit		:	{{$book->book_unit}}</p>
-					<p>Publisher:	</p>
+					<p>Publisher:	{{$book->book_publisher}}</p>
 				</div>
 				
 			</div>

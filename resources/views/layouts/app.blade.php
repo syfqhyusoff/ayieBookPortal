@@ -59,28 +59,39 @@
                     fit: true   // 100% fit in a container
                 });
             });
-    </script>
+        </script>
 
-
-   
-    <body>
 
         @include('inc.navbar')
 
-        <div class="container">
+    <body>
 
-            @include('inc.messages')
+	<!-- breadcrumbs -->
+	    <div class="breadcrumb_dress">
+		    <div class="container">
+			    <ul>
+				    <li><a href="/"><span class="glyphicon glyphicon-home" aria-hidden="true"></span> Home</a> <i>/</i></li>
+				    <li>Business</li>
+			    </ul>
+		    </div>
+	    </div>
+	<!-- //breadcrumbs --> 
 
-            @yield('content')
+	<!-- mobiles -->
+	<div class="mobiles">
+		
+		<div class="container">
+			<div class="w3ls_mobiles_grids">
+		        @include('inc.list')
+                @yield('content')
            
+                <div class="clearfix"> 
 
+                </div>
+            </div>
         </div>
-        <script src="/vendor/unisharp/laravel-ckeditor/ckeditor.js"></script>
-   
-        <script>
-        CKEDITOR.replace( 'article-ckeditor' );
-        </script>
-        
+    </div>  
+
 
         	
     </body>

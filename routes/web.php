@@ -24,14 +24,18 @@ Route::get('/users/{id}/{name}' , function($id, $name){
 
 */
 
-Route::get('/', 'PagesController@index');
+//Route::get('/', 'PagesController@index');
 //Route::get('/about', 'PagesController@about');
 //Route::get('/services', 'PagesController@services');
-Route::get('/business', 'PagesController@business');
+//Route::resource('posts', 'PostsController');
 Route::get('/thriller', 'PagesController@thriller');
 Route::get('/romance', 'PagesController@romance');
 Route::get('/single', 'PagesController@single');
-//Route::resource('posts', 'PostsController');
 Route::resource('bookCategory', 'BooksController');
 Route::resource('review','reviewCont');
 Route::resource('rating','ratingCont');
+Route::get('/bookCategory', 'BooksController@category');
+Route::get('/', 'BooksController@index');
+Route::get('/about', 'BooksController@about');
+Route::get('/testjoin', 'BooksController@testjoin');
+
