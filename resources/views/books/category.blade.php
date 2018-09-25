@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.allcategory')
 
 @section('content')	
 
@@ -8,8 +8,12 @@
 					<!--TIGA YANG FIRST-->
 					<div class="w3ls_mobiles_grid_right_grid3">
 						
+						@php ($book2 = 0)
 						@if(count($books) > 0)
 						@foreach($books as $book)
+						{{$book2}}
+						@if($book->book_id !== $book2)
+
 						
 							<div class="col-md-4 agileinfo_new_products_grid agileinfo_new_products_grid_mobiles">
 								<div class="agile_ecommerce_tab_left mobiles_grid">
@@ -22,6 +26,7 @@
 									
 								</div>
 
+
 								<h5><a href="/bookCategory/{{$book->book_id}}">{{$book->book_title}}</h5>
 								<div class="simpleCart_shelfItem">
 										<div class="rating1">
@@ -33,7 +38,7 @@
 													<input id="rating3" type="radio" name="rating" value="3">
 													<label for="rating3">3</label>
 													<input id="rating2" type="radio" name="rating" value="2">
-													<label for="rating2">2</label>
+												<label for="rating2">2</label>
 													<input id="rating1" type="radio" name="rating" value="1">
 													<label for="rating1">1</label>
 												</span>
@@ -43,19 +48,23 @@
 									
 									<a class="button button2" href="/bookCategory/{{$book->book_id}}" role="button">View More</a>
 									
+									@else
+									<p>{{$book->author_fname}}</p>
+									@endif
 									
 								</div> 
 								</div>
 							</div>
-						
+							
+						@php($book2 = $book->book_id) 
+
 						@endforeach
 						@else
 						<p>no books found</p>
 						@endif
 
-						@if(count($books) > 0)
-						@foreach($books as $book)
-
+						
+						<!--modal unused
 							<div class="modal video-modal fade" id="myModal9" tabindex="-1" role="dialog" aria-labelledby="myModal9">
 									<div class="modal-dialog" role="document">
 										<div class="modal-content">
@@ -66,9 +75,9 @@
 												
 												<div class="modal-body">
 													<div class="col-md-5 modal_body_left">
-													<img src="{{$book->image_url}}" alt="No Image" class="img-responsive"/>													</div>
+													<img src="{$book->image_url}}" alt="No Image" class="img-responsive"/>													</div>
 													<div class="col-md-7 modal_body_right">
-														<h4>{{$book->book_title}}</h4>
+														<h4>{$book->book_title}}</h4>
 														<p>Ut enim ad minim veniam, quis nostrud 
 															exercitation ullamco laboris nisi ut aliquip ex ea 
 															commodo consequat.Duis aute irure dolor in 
@@ -121,11 +130,8 @@
 									</div>
 								</div>
 							</div>
+						-->
 						
-						@endforeach
-						@else
-						<p>no books found</p>
-						@endif
 
 						<div class="clearfix"> </div>
 					</div>					

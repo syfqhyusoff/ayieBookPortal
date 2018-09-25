@@ -44,7 +44,7 @@
 				<div class="collapse navbar-collapse" id="bs-megadropdown-tabs">
 					<ul class="nav navbar-nav">
 						<li><a href="/">Home</a></li>	
-						<li><a href="/bookCategory">Categories</a></li>	
+						<li><a href="/bookCategory">Browse</a></li>	
 						<li><a href="/about">About Us</a></li> 
 					</ul>
 				</div>

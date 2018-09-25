@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\genre;
 use DB;
+USE App\book;
 
-class categCont extends Controller
+class genreCont extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,11 +16,13 @@ class categCont extends Controller
      */
     public function index()
     {
-      
-       $genre = DB::table('book_genre')
-       ->get();
-       return $genre;
+ 
+    }
 
+    public function list()
+    {
+        $genre = genre::all();
+        return $genre;
 
     }
 
@@ -50,13 +54,7 @@ class categCont extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show($id)
-    {
-        
-        /* $books = DB::table('book_items')
-        ->leftjoin('book_category', 'book_category.book_id','=','book_items.book_id')
-        ->leftjoin('book_genre', 'book_genre.genre_id', '=', 'book_category.genre_id')
-        ->get();*/
-        
+    {   
         $books = DB::table('book_items')
         ->leftjoin('book_contributor', 'book_contributor.book_id', '=', 'book_items.book_id')
         ->leftjoin('book_author', 'book_author.author_id', '=', 'book_contributor.author_id')
@@ -67,12 +65,8 @@ class categCont extends Controller
         ->where('book_genre.genre_id',$id)
         ->get();
 
-        return view('books.category') 
-
-        ->with('books', $books);
-
-
-
+        return view ('books.category') -> with ('books', $books);
+        
     }
 
     /**
